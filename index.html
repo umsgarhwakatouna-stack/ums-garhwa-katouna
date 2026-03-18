@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>उत्क्रमित मध्य विद्यालय, गढ़वा कटौना | जमुई, बिहार</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@250;500;600;700;800&family=Poppins:wght@300;250;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -334,11 +334,11 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
 @keyframes waPulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,0.5);}50%{box-shadow:0 8px 32px rgba(37,211,102,0.7),0 0 0 6px rgba(37,211,102,0.12);}}
 @media(max-width:600px){.wa-float-label{display:none;}.wa-float{padding:14px;border-radius:50%;bottom:20px;right:20px;}}
 
-.reveal{opacity:0;transform:translateY(24px);transition:all .65s ease;}
+.reveal{opacity:1;transform:none;transition:all .65s ease;}
 .reveal.on{opacity:1;transform:none;}
-.reveal-l{opacity:0;transform:translateX(-24px);transition:all .65s ease;}
+.reveal-l{opacity:1;transform:none;transition:all .65s ease;}
 .reveal-l.on{opacity:1;transform:none;}
-.reveal-r{opacity:0;transform:translateX(24px);transition:all .65s ease;}
+.reveal-r{opacity:1;transform:none;transition:all .65s ease;}
 .reveal-r.on{opacity:1;transform:none;}
 
 /* RESPONSIVE */
@@ -937,9 +937,9 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
           <div class="rf-item"><span>✅</span> प्रतिशत एवं ग्रेड</div>
         </div>
         <a href="result.html" class="result-btn">
-          📋 Result देखें — Roll Number से
+          📋 Result देखें — Roll Number से →
         </a>
-        <p class="result-note">✅ Result portal अभी उपलब्ध है — Roll Number से देखें</p>
+        <p class="result-note">✅ Roll Number डालें और तुरंत result देखें</p>
       </div>
     </div>
   </div>
@@ -1015,7 +1015,6 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
         <li><a href="#facilities">▸ सुविधाएं</a></li>
         <li><a href="#gallery">▸ गैलरी</a></li>
         <li><a href="#contact">▸ संपर्क</a></li>
-        <li><a href="result.html">▸ 📊 Result Portal</a></li>
       </ul>
     </div>
     <div class="f-col">
@@ -1036,7 +1035,8 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
         <li><a href="#">▸ शिक्षा विभाग, बिहार</a></li>
         <li><a href="#">▸ मेरा पोर्टल (Bihar)</a></li>
         <li><a href="#">▸ Mandatory Disclosure</a></li>
-        <li><a href="#">▸ TC Download</a></li>
+        <li><a href="result.html">▸ TC Download</a></li>
+        <li><a href="result.html">▸ 📊 Result Portal</a></li>
         <li><a href="https://whatsapp.com/channel/0029VbCH58Y5vKA2Al6rVB0R" target="_blank">▸ 📢 WhatsApp Channel</a></li>
       </ul>
     </div>
@@ -1072,11 +1072,22 @@ function goSlide(n){
 function changeSlide(d){goSlide((cur+d+slides.length)%slides.length);}
 timer=setInterval(()=>changeSlide(1),5000);
 
-// Scroll reveal
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});
-},{threshold:.1});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(el));
+// Scroll reveal — set initial hidden state via JS only (so no-JS users see content)
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el) {
+  el.style.opacity = '0';
+  if(el.classList.contains('reveal-l')) el.style.transform = 'translateX(-24px)';
+  else if(el.classList.contains('reveal-r')) el.style.transform = 'translateX(24px)';
+  else el.style.transform = 'translateY(24px)';
+});
+const io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if(e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'none';
+    }
+  });
+}, {threshold: 0.08});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(function(el) { io.observe(el); });
 
 // Counter
 function countUp(el,target){
