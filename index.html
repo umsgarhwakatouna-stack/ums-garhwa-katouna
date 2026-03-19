@@ -149,6 +149,9 @@ nav{background:#1a3c6b;position:sticky;top:0;z-index:999;box-shadow:0 2px 12px r
 .fac-t{font-size:14px;font-weight:700;color:#1a3c6b;margin-bottom:5px;transition:color .3s;}
 .fac-d{font-size:12px;color:#777;line-height:1.5;transition:color .3s;}
 
+.gallery-full-btn{display:inline-flex;align-items:center;gap:10px;background:#1a3c6b;color:#fff;text-decoration:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;transition:all .3s;box-shadow:0 6px 20px rgba(26,60,107,0.3);font-family:'Poppins',sans-serif;}
+.gallery-full-btn:hover{background:#e8a020;transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,160,32,0.4);}
+
 /* NOTICE BOARD */
 .notice-tabs{display:flex;border-bottom:2px solid #e8a020;margin-bottom:0;}
 .ntab{padding:12px 28px;font-weight:700;font-size:14px;border:none;cursor:pointer;background:transparent;color:#1a3c6b;border-radius:8px 8px 0 0;transition:all .2s;font-family:inherit;}
@@ -282,7 +285,8 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
 /* TEACHER SECTION */
 .hm-card{background:linear-gradient(135deg,#1a3c6b,#2563ab);border-radius:20px;padding:30px 34px;display:flex;align-items:center;gap:28px;margin-bottom:36px;box-shadow:0 12px 40px rgba(26,60,107,0.25);}
 .hm-left{display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0;}
-.hm-avatar{width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,0.15);border:3px solid #e8a020;display:flex;align-items:center;justify-content:center;font-size:40px;}
+.hm-avatar{width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,0.15);border:3px solid #e8a020;display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden;}
+.hm-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
 .hm-badge{background:#e8a020;color:#fff;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;letter-spacing:1px;white-space:nowrap;}
 .hm-right{flex:1;}
 .hm-name-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px;}
@@ -296,7 +300,8 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
 .teacher-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:8px;}
 .tch-card{background:#fff;border:1px solid #e0e0e0;border-radius:14px;padding:20px;display:flex;gap:14px;align-items:flex-start;transition:all .3s;}
 .tch-card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.1);transform:translateY(-4px);}
-.tch-avatar{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border:3px solid #e8a020;}
+.tch-avatar{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border:3px solid #e8a020;overflow:hidden;}
+.tch-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
 .tch-avatar.male{background:linear-gradient(135deg,#e3f2fd,#bbdefb);}
 .tch-avatar.female{background:linear-gradient(135deg,#fce4ec,#f8bbd9);}
 .tch-info h3{font-family:'Noto Sans Devanagari',sans-serif;font-size:15px;font-weight:800;color:#1a3c6b;margin-bottom:6px;}
@@ -306,7 +311,8 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
 .teacher-grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:8px;}
 .tch-card-sm{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:18px 10px;text-align:center;transition:all .3s;}
 .tch-card-sm:hover{box-shadow:0 8px 20px rgba(0,0,0,0.1);transform:translateY(-4px);border-color:#1a3c6b;}
-.tch-av-sm{width:54px;height:54px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #e8a020;}
+.tch-av-sm{width:54px;height:54px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid #e8a020;overflow:hidden;}
+.tch-av-sm img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
 .tch-av-sm.male{background:linear-gradient(135deg,#e3f2fd,#bbdefb);}
 .tch-av-sm.female{background:linear-gradient(135deg,#fce4ec,#f8bbd9);}
 .tch-card-sm h4{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;font-weight:800;color:#1a3c6b;margin-bottom:6px;line-height:1.3;}
@@ -728,6 +734,11 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
       <div class="g-item gc6">🏆<div class="g-lbl">पुरस्कार वितरण</div></div>
       <div class="g-item gc7">🎓<div class="g-lbl">समारोह</div></div>
     </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="gallery.html" class="gallery-full-btn">
+        📸 पूरी गैलरी देखें — सभी तस्वीरें →
+      </a>
+    </div>
   </div>
 </section>
 
@@ -742,7 +753,7 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
     <!-- Head Master -->
     <div class="hm-card reveal">
       <div class="hm-left">
-        <div class="hm-avatar">👨‍💼</div>
+        <div class="hm-avatar"><img src="photos/teachers/bipin_kumar.jpg" alt="श्री बिपिन कुमार आर्या" onerror="this.style.display='none';this.parentElement.innerHTML='👨‍💼'"></div>
         <div class="hm-badge">प्रधान शिक्षक</div>
       </div>
       <div class="hm-right">
@@ -762,7 +773,7 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
     <div class="teacher-section-title reveal"><span>📚 कक्षा 6 से 8 — विषय शिक्षक</span></div>
     <div class="teacher-grid-3 reveal">
       <div class="tch-card">
-        <div class="tch-avatar male">👨‍🏫</div>
+        <div class="tch-avatar male"><img src="photos/teachers/vikash_kumar.jpg" alt="श्री विकाश कुमार" onerror="this.style.display='none';this.parentElement.innerHTML='👨‍🏫'"></div>
         <div class="tch-info">
           <h3>श्री विकाश कुमार</h3>
           <span class="tch-subject">सामाजिक विज्ञान</span>
@@ -771,7 +782,7 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
         </div>
       </div>
       <div class="tch-card">
-        <div class="tch-avatar male">👨‍🏫</div>
+        <div class="tch-avatar male"><img src="photos/teachers/rajeev_singh.jpg" alt="श्री राजीव कुमार सिंह" onerror="this.style.display='none';this.parentElement.innerHTML='👨‍🏫'"></div>
         <div class="tch-info">
           <h3>श्री राजीव कुमार सिंह</h3>
           <span class="tch-subject">हिंदी</span>
@@ -780,7 +791,7 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
         </div>
       </div>
       <div class="tch-card">
-        <div class="tch-avatar female">👩‍🏫</div>
+        <div class="tch-avatar female"><img src="photos/teachers/nidhi_kumari.jpg" alt="श्रीमती निधि कुमारी" onerror="this.style.display='none';this.parentElement.innerHTML='👩‍🏫'"></div>
         <div class="tch-info">
           <h3>श्रीमती निधि कुमारी</h3>
           <span class="tch-subject">गणित</span>
@@ -793,15 +804,15 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
     <!-- Class 1-5 -->
     <div class="teacher-section-title reveal"><span>🌱 कक्षा 1 से 5 — प्राथमिक शिक्षक</span></div>
     <div class="teacher-grid-5 reveal">
-      <div class="tch-card-sm"><div class="tch-av-sm male">👨‍🏫</div><h4>श्री अभिषेक कुमार</h4><span class="tch-sub-sm">सभी विषय</span><span class="tch-cl-sm">कक्षा 1–5</span></div>
-      <div class="tch-card-sm"><div class="tch-av-sm male">👨‍🏫</div><h4>श्री सिनोद कुमार सिंह</h4><span class="tch-sub-sm">सभी विषय</span><span class="tch-cl-sm">कक्षा 1–5</span></div>
-      <div class="tch-card-sm"><div class="tch-av-sm female">👩‍🏫</div><h4>श्रीमती संगीता रानी</h4><span class="tch-sub-sm">सभी विषय</span><span class="tch-cl-sm">कक्षा 1–5</span></div>
-      <div class="tch-card-sm"><div class="tch-av-sm female">👩‍🏫</div><h4>श्रीमती सुमन कुमारी</h4><span class="tch-sub-sm">सभी विषय</span><span class="tch-cl-sm">कक्षा 1–5</span></div>
-      <div class="tch-card-sm"><div class="tch-av-sm female">👩‍🏫</div><h4>श्रीमती पिंकू कुमारी</h4><span class="tch-sub-sm">सभी विषय</span><span class="tch-cl-sm">कक्षा 1–5</span></div>
+      <div class="tch-card-sm"><div class="tch-av-sm male"><img src="photos/teachers/abhishek_kumar.jpg" alt="श्री अभिषेक कुमार" onerror="this.style.display='none';this.parentElement.innerHTML='👨‍🏫'"></div><h4>श्री अभिषेक कुमार</h4><span class="tch-sub-sm">सभी विषय</span><span class="tch-cl-sm">कक्षा 1–5</span></div>
+      <div class="tch-card-sm"><div class="tch-av-sm male"><img src="photos/teachers/sinod_kumar.jpg" alt="श्री सिनोद कुमार सिंह" onerror="this.style.display='none';this.parentElement.innerHTML='👨‍🏫'"></div><h4>श्री सिनोद कुमार सिंह</h4><span class="tch-sub-sm">सभी विषय</span><span class="tch-cl-sm">कक्षा 1–5</span></div>
+      <div class="tch-card-sm"><div class="tch-av-sm female"><img src="photos/teachers/sangeeta_rani.jpg" alt="श्रीमती संगीता रानी" onerror="this.style.display='none';this.parentElement.innerHTML='👩‍🏫'"></div><h4>श्रीमती संगीता रानी</h4><span class="tch-sub-sm">सभी विषय</span><span class="tch-cl-sm">कक्षा 1–5</span></div>
+      <div class="tch-card-sm"><div class="tch-av-sm female"><img src="photos/teachers/suman_kumari.jpg" alt="श्रीमती सुमन कुमारी" onerror="this.style.display='none';this.parentElement.innerHTML='👩‍🏫'"></div><h4>श्रीमती सुमन कुमारी</h4><span class="tch-sub-sm">सभी विषय</span><span class="tch-cl-sm">कक्षा 1–5</span></div>
+      <div class="tch-card-sm"><div class="tch-av-sm female"><img src="photos/teachers/pinku_kumari.jpg" alt="श्रीमती पिंकू कुमारी" onerror="this.style.display='none';this.parentElement.innerHTML='👩‍🏫'"></div><h4>श्रीमती पिंकू कुमारी</h4><span class="tch-sub-sm">सभी विषय</span><span class="tch-cl-sm">कक्षा 1–5</span></div>
     </div>
     <!-- Shiksha Sevak -->
     <div class="sevak-card reveal">
-      <div class="sevak-icon">🌟</div>
+      <div class="sevak-icon"><div style="width:60px;height:60px;border-radius:50%;overflow:hidden;border:3px solid #e8a020;display:inline-flex;align-items:center;justify-content:center;background:#fff3cd;font-size:28px;"><img src="photos/teachers/ajay_manjhi.jpg" alt="श्री अजय कुमार मांझी" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.parentElement.innerHTML='🌟'"></div></div>
       <div class="sevak-info">
         <h3>श्री अजय कुमार मांझी</h3>
         <span class="sevak-badge">शिक्षा सेवक</span>
@@ -955,7 +966,7 @@ footer{background:#0d1f3c;color:rgba(255,255,255,.7);}
         <li><a href="#about">▸ विद्यालय परिचय</a></li>
         <li><a href="#teachers">▸ शिक्षकगण</a></li>
         <li><a href="#facilities">▸ सुविधाएं</a></li>
-        <li><a href="#gallery">▸ गैलरी</a></li>
+        <li><a href="gallery.html">▸ गैलरी</a></li>
         <li><a href="#contact">▸ संपर्क</a></li>
       </ul>
     </div>
