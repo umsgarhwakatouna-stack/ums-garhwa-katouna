@@ -521,7 +521,7 @@ footer a:hover { color: white; }
   <div class="loader-box">
     <div class="spinner"></div>
     <div class="loader-title">परिणाम लोड हो रहा है…</div>
-    <div class="loader-sub">GitHub से डेटा प्राप्त किया जा रहा है</div>
+    <div class="loader-sub">Server से डेटा प्राप्त किया जा रहा है</div>
   </div>
 </div>
 
@@ -686,7 +686,7 @@ footer a:hover { color: white; }
 // ============================================================
 let studentData = [];
 
-// ---- FETCH FROM GITHUB ----
+// ---- FETCH FROM SERVER ----
 async function init() {
   try {
     const res = await fetch(EXCEL_URL, { cache: "no-cache" });
@@ -704,7 +704,7 @@ async function init() {
     document.getElementById("fetchErrTitle").textContent = "डेटा लोड नहीं हो सका";
     document.getElementById("fetchErrBody").innerHTML =
       `<b>Error:</b> ${e.message}<br><br>
-       <b>Possible fix:</b> Excel file GitHub repo में है? File public है?<br>
+       <b>Possible fix:</b> Excel file Server में है? File public है?<br>
        EXCEL_URL को HTML में जाँचें।`;
   }
 }
@@ -765,7 +765,7 @@ function buildData(rows) {
 
   document.getElementById("liveTitle").textContent = "परिणाम डेटा उपलब्ध है ✓";
   document.getElementById("liveSub").textContent =
-    `${studentData.length} छात्रों का डेटा • ${classes.length} कक्षाएं • GitHub से लाइव लोड`;
+    `${studentData.length} छात्रों का डेटा • ${classes.length} कक्षाएं • Server से लाइव लोड`;
 
   document.getElementById("loadingOverlay").style.display = "none";
   document.getElementById("liveBanner").style.display     = "flex";
