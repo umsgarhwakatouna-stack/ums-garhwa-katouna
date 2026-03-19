@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="उत्क्रमित मध्य विद्यालय गढ़वा कटौना — फोटो गैलरी">
+<title>फोटो गैलरी — UMS गढ़वा कटौना</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --P:#0D2B55; --A:#FF6B00; --G:#F5A623;
+  --bg:#F4F6FB; --white:#fff; --r:13px;
+}
+body{font-family:'Noto Sans Devanagari',sans-serif;background:var(--bg);color:#1a1a2e;min-height:100vh}
+
+/* ══ HEADER ══ */
+.gl-hdr{
+  background:linear-gradient(135deg,#0D2B55 0%,#1a4a8a 55%,#1565C0 100%);
+  padding:52px 16px 60px;text-align:center;position:relative;overflow:hidden;
+}
+.gl-hdr::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 40%,rgba(255,107,0,.18),transparent 55%),
+             radial-gradient(ellipse at 10% 60%,rgba(245,166,35,.12),transparent 50%);
+  pointer-events:none;}
+.gl-tag{
+  display:inline-block;background:var(--A);color:#fff;
+  font-size:11px;font-weight:700;padding:5px 18px;
+  border-radius:50px;letter-spacing:2px;margin-bottom:14px;
+  position:relative;box-shadow:0 4px 14px rgba(255,107,0,.4);
+}
+.gl-title{
+  font-family:'Tiro Devanagari Hindi',serif;
+  font-size:clamp(1.8rem,5.5vw,2.9rem);
+  color:#fff;line-height:1.2;position:relative;
+  text-shadow:0 2px 16px rgba(0,0,0,.3);
+}
+.gl-title em{font-style:normal;color:var(--G)}
+.gl-sub{
+  color:rgba(255,255,255,.65);font-size:13px;
+  margin:10px auto 0;max-width:440px;line-height:1.75;
+  position:relative;
+}
+
+/* stats bar */
+.gl-stats{
+  background:rgba(0,0,0,.28);
+  display:flex;flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,.1);
+  position:relative;
+}
+.gs{flex:1;min-width:80px;padding:13px 6px;text-align:center;
+  border-right:1px solid rgba(255,255,255,.08)}
+.gs:last-child{border-right:none}
+.gs b{display:block;font-size:19px;font-weight:900;color:var(--G)}
+.gs s{font-size:10px;color:rgba(255,255,255,.45);text-decoration:none;display:block;margin-top:1px}
+
+/* ══ CAT TABS ══ */
+.cat-wrap{
+  background:#fff;
+  padding:18px 12px 14px;
+  border-bottom:2px solid #e8f0fe;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+}
+.cat-lbl{font-size:10px;font-weight:700;color:#aaa;letter-spacing:1.5px;
+  text-align:center;margin-bottom:10px;text-transform:uppercase}
+.cat-scroll{
+  display:flex;flex-wrap:wrap;gap:7px;justify-content:center;
+}
+.cat-all{
+  background:var(--P);border:2px solid var(--P);color:#fff;
+}
+.cat-all .cb-num{background:rgba(255,255,255,.2);color:#fff}
+.cat-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  background:#f5f8ff;border:2px solid #dde8f8;
+  border-radius:50px;padding:7px 14px;
+  font-family:'Noto Sans Devanagari',sans-serif;
+  font-size:12px;cursor:pointer;
+  transition:all .2s ease;white-space:nowrap;
+}
+.cat-btn:hover,.cat-btn.on{
+  background:var(--A);border-color:var(--A);color:#fff;
+  box-shadow:0 4px 14px rgba(255,107,0,.3);
+  transform:translateY(-2px);
+}
+.cat-btn:hover .cb-num,.cat-btn.on .cb-num{background:rgba(255,255,255,.25);color:#fff}
+.cb-lbl{font-weight:700}
+.cb-num{
+  background:#e8effd;color:var(--P);
+  font-size:10px;font-weight:800;
+  padding:1px 7px;border-radius:20px;
+  transition:all .2s;
+}
+
+/* ══ ACTIVE HEADING ══ */
+.act-head{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:8px;
+  max-width:1200px;margin:22px auto 14px;padding:0 14px;
+}
+.act-left{display:flex;align-items:center;gap:9px}
+.act-left h3{font-size:16px;font-weight:800;color:var(--P)}
+.act-badge{
+  background:var(--A);color:#fff;
+  font-size:11px;font-weight:700;
+  padding:3px 12px;border-radius:20px;
+}
+.act-date{font-size:12px;color:#999}
+
+/* ══ PHOTO GRID ══ */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  max-width:1200px;margin:0 auto;padding:0 12px 16px;
+}
+@media(min-width:480px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr);gap:14px}}
+@media(min-width:960px){.grid{grid-template-columns:repeat(5,1fr)}}
+
+/* ══ CARD ══ */
+.ph{
+  border-radius:var(--r);overflow:hidden;
+  position:relative;aspect-ratio:4/3;
+  cursor:pointer;background:#dde8f8;
+  box-shadow:0 3px 14px rgba(0,0,0,.09);
+  transition:transform .3s cubic-bezier(.22,.68,0,1.2),box-shadow .25s;
+}
+.ph:hover{
+  transform:translateY(-6px) scale(1.028);
+  box-shadow:0 16px 40px rgba(0,0,0,.2);
+}
+.ph img{
+  width:100%;height:100%;object-fit:cover;
+  display:block;transition:transform .5s;
+  opacity:0;transition:opacity .4s ease,transform .5s;
+}
+.ph img.loaded{opacity:1}
+.ph:hover img{transform:scale(1.07)}
+
+/* shimmer skeleton */
+.ph-sk{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,#dde8f8 25%,#eef3fb 50%,#dde8f8 75%);
+  background-size:200% 100%;
+  animation:sk 1.4s ease infinite;
+}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+.ph-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(13,43,85,.9) 0%,rgba(13,43,85,.15) 55%,transparent 100%);
+  padding:10px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  opacity:0;transition:opacity .25s;
+}
+.ph:hover .ph-ov{opacity:1}
+.ph-tag{
+  display:inline-block;background:var(--A);color:#fff;
+  font-size:9px;font-weight:700;
+  padding:2px 7px;border-radius:20px;
+  margin-bottom:4px;width:fit-content;
+}
+.ph-cap{color:#fff;font-size:11px;font-weight:700;line-height:1.3}
+.ph-dt{color:rgba(255,255,255,.6);font-size:10px;margin-top:2px}
+
+/* ══ LOAD MORE ══ */
+.load-wrap{text-align:center;padding:10px 14px 50px;display:none}
+.load-btn{
+  background:var(--P);color:#fff;border:none;
+  padding:13px 36px;border-radius:50px;
+  font-family:'Noto Sans Devanagari',sans-serif;
+  font-size:13px;font-weight:700;cursor:pointer;
+  box-shadow:0 6px 20px rgba(13,43,85,.28);
+  transition:all .22s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.load-btn:hover{background:var(--A);transform:translateY(-2px);
+  box-shadow:0 10px 28px rgba(255,107,0,.4)}
+
+/* ══ LIGHTBOX ══ */
+.lb{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(4,8,24,.96);backdrop-filter:blur(18px);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .26s;
+}
+.lb.open{opacity:1;pointer-events:auto}
+.lb-img-box{position:relative;max-width:94vw}
+.lb img{
+  max-width:94vw;max-height:73vh;
+  border-radius:12px;object-fit:contain;display:block;
+  box-shadow:0 28px 70px rgba(0,0,0,.7);
+}
+.lb-info{
+  margin-top:14px;text-align:center;padding:0 16px;
+}
+.lb-ctag{
+  display:inline-block;background:var(--A);color:#fff;
+  font-size:10px;font-weight:700;
+  padding:2px 12px;border-radius:20px;margin-bottom:6px;
+}
+.lb-cap{color:#fff;font-size:14px;font-weight:700}
+.lb-date{color:rgba(255,255,255,.5);font-size:12px;margin-top:4px}
+.lb-cnt{
+  display:inline-block;background:rgba(255,255,255,.1);
+  color:rgba(255,255,255,.75);font-size:11px;
+  padding:2px 14px;border-radius:20px;margin-top:7px;
+  backdrop-filter:blur(6px);
+}
+.lb-x{
+  position:fixed;top:14px;right:16px;
+  background:rgba(255,255,255,.12);border:none;
+  color:#fff;width:44px;height:44px;border-radius:50%;
+  font-size:22px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(6px);transition:background .2s;
+}
+.lb-x:hover{background:var(--A)}
+.lb-nav{
+  position:fixed;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,.12);border:none;
+  color:#fff;width:50px;height:50px;border-radius:50%;
+  font-size:30px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(6px);transition:background .2s;
+}
+.lb-nav:hover{background:var(--A)}
+.lb-prev{left:14px}.lb-next{right:14px}
+
+/* swipe hint on mobile */
+@media(max-width:600px){
+  .lb-nav{width:40px;height:40px;font-size:22px}
+  .lb-prev{left:6px}.lb-next{right:6px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="gl-hdr">
+  <div class="gl-tag">📸 फोटो गैलरी</div>
+  <h2 class="gl-title">विद्यालय की <em>झलकियां</em></h2>
+  <p class="gl-sub">हमारे परिसर, गतिविधियों और छात्र जीवन की जीवंत झलक</p>
+  <div class="gl-stats">
+    <div class="gs"><b>50</b><s>तस्वीरें</s></div>
+    <div class="gs"><b>7</b><s>श्रेणियाँ</s></div>
+    <div class="gs"><b>2025–26</b><s>सत्र</s></div>
+    <div class="gs"><b>⚡</b><s>Fast Load</s></div>
+  </div>
+</div>
+
+<!-- CATEGORY TABS (sticky) -->
+<div class="cat-wrap">
+  <div class="cat-lbl">श्रेणी चुनें</div>
+  <div class="cat-scroll">
+    <button class="cat-btn cat-all on" data-cat="all" onclick="selectCat('all')">
+      <span>🔍</span>
+      <span class="cb-lbl">सभी देखें</span>
+      <span class="cb-num">50</span>
+    </button>
+<button class="cat-btn" data-cat="bhavan" onclick="selectCat('bhavan')">
+      <span>🏫</span>
+      <span class="cb-lbl">विद्यालय भवन</span>
+      <span class="cb-num">7</span>
+    </button>
+<button class="cat-btn" data-cat="prarthna" onclick="selectCat('prarthna')">
+      <span>🙏</span>
+      <span class="cb-lbl">प्रार्थना सभा</span>
+      <span class="cb-num">6</span>
+    </button>
+<button class="cat-btn" data-cat="exam" onclick="selectCat('exam')">
+      <span>📝</span>
+      <span class="cb-lbl">वार्षिक परीक्षा</span>
+      <span class="cb-num">10</span>
+    </button>
+<button class="cat-btn" data-cat="mdm" onclick="selectCat('mdm')">
+      <span>🍽️</span>
+      <span class="cb-lbl">मध्यान्ह भोजन</span>
+      <span class="cb-num">2</span>
+    </button>
+<button class="cat-btn" data-cat="ptm" onclick="selectCat('ptm')">
+      <span>👨‍👩‍👧</span>
+      <span class="cb-lbl">PTM संगोष्ठी</span>
+      <span class="cb-num">8</span>
+    </button>
+<button class="cat-btn" data-cat="holi" onclick="selectCat('holi')">
+      <span>🎨</span>
+      <span class="cb-lbl">होली मिलन</span>
+      <span class="cb-num">15</span>
+    </button>
+<button class="cat-btn" data-cat="republic" onclick="selectCat('republic')">
+      <span>🇮🇳</span>
+      <span class="cb-lbl">गणतंत्र दिवस</span>
+      <span class="cb-num">2</span>
+    </button>
+  </div>
+</div>
+
+<!-- ACTIVE HEADING -->
+<div class="act-head">
+  <div class="act-left">
+    <span id="ah-ico" style="font-size:22px">🔍</span>
+    <h3 id="ah-ttl">सभी तस्वीरें</h3>
+    <span class="act-badge" id="ah-cnt">50 Photos</span>
+  </div>
+  <div class="act-date" id="ah-date"></div>
+</div>
+
+<!-- GRID -->
+<div class="grid" id="grid"></div>
+
+<!-- LOAD MORE -->
+<div class="load-wrap" id="loadWrap">
+  <button class="load-btn" onclick="loadMore()">
+    📸 और तस्वीरें देखें <span id="remCnt"></span>
+  </button>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-x" onclick="closeLb()">✕</button>
+  <button class="lb-nav lb-prev" onclick="navLb(-1)">&#8249;</button>
+  <button class="lb-nav lb-next" onclick="navLb(+1)">&#8250;</button>
+  <div class="lb-img-box">
+    <img id="lb-img" src="" alt="">
+  </div>
+  <div class="lb-info">
+    <div class="lb-ctag" id="lb-ctag"></div>
+    <div class="lb-cap"  id="lb-cap"></div>
+    <div class="lb-date" id="lb-date"></div>
+    <span class="lb-cnt" id="lb-cnt"></span>
+  </div>
+</div>
+
+<script>
+const DATA = {
+  "bhavan": {
+    "icon": "🏫",
+    "title": "विद्यालय भवन",
+    "date": "जनवरी 2026",
+    "photos": [
+      {
+        "src": "gallery/bhavan/bhavan_01.jpg",
+        "thumb": "gallery/bhavan/bhavan_01.jpg",
+        "cap": "खुले मैदान में व्यायाम",
+        "date": "जनवरी 2026"
+      },
+      {
+        "src": "gallery/bhavan/bhavan_02.jpg",
+        "thumb": "gallery/bhavan/bhavan_02.jpg",
+        "cap": "विद्यालय — प्रातः पंक्ति",
+        "date": "जनवरी 2026"
+      },
+      {
+        "src": "gallery/bhavan/bhavan_03.jpg",
+        "thumb": "gallery/bhavan/bhavan_03.jpg",
+        "cap": "प्रार्थना स्थल",
+        "date": "जनवरी 2026"
+      },
+      {
+        "src": "gallery/bhavan/bhavan_04.jpg",
+        "thumb": "gallery/bhavan/bhavan_04.jpg",
+        "cap": "शिक्षक-छात्र प्रार्थना",
+        "date": "जनवरी 2026"
+      },
+      {
+        "src": "gallery/bhavan/bhavan_05.jpg",
+        "thumb": "gallery/bhavan/bhavan_05.jpg",
+        "cap": "छोटे बच्चे — नमस्कार",
+        "date": "जनवरी 2026"
+      },
+      {
+        "src": "gallery/bhavan/bhavan_06.jpg",
+        "thumb": "gallery/bhavan/bhavan_06.jpg",
+        "cap": "शिक्षक व अतिथि — प्रांगण",
+        "date": "जनवरी 2026"
+      },
+      {
+        "src": "gallery/bhavan/bhavan_07.jpg",
+        "thumb": "gallery/bhavan/bhavan_07.jpg",
+        "cap": "भवन के सामने प्रार्थना",
+        "date": "जनवरी 2026"
+      }
+    ]
+  },
+  "prarthna": {
+    "icon": "🙏",
+    "title": "प्रार्थना सभा",
+    "date": "मार्च 2026",
+    "photos": [
+      {
+        "src": "gallery/prarthna/prarthna_01.jpg",
+        "thumb": "gallery/prarthna/prarthna_01.jpg",
+        "cap": "प्रार्थना में व्यायाम",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/prarthna/prarthna_02.jpg",
+        "thumb": "gallery/prarthna/prarthna_02.jpg",
+        "cap": "सुबह की पंक्ति",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/prarthna/prarthna_03.jpg",
+        "thumb": "gallery/prarthna/prarthna_03.jpg",
+        "cap": "शिक्षकों के साथ पंक्ति",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/prarthna/prarthna_04.jpg",
+        "thumb": "gallery/prarthna/prarthna_04.jpg",
+        "cap": "प्रार्थना का दृश्य",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/prarthna/prarthna_05.jpg",
+        "thumb": "gallery/prarthna/prarthna_05.jpg",
+        "cap": "छात्र-छात्राएं एकत्रित",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/prarthna/prarthna_06.jpg",
+        "thumb": "gallery/prarthna/prarthna_06.jpg",
+        "cap": "वंदन — नमस्कार",
+        "date": "मार्च 2026"
+      }
+    ]
+  },
+  "exam": {
+    "icon": "📝",
+    "title": "वार्षिक परीक्षा",
+    "date": "मार्च 2026",
+    "photos": [
+      {
+        "src": "gallery/exam/exam_01.jpg",
+        "thumb": "gallery/exam/exam_01.jpg",
+        "cap": "परीक्षा निरीक्षण — कक्षा VIII",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/exam/exam_02.jpg",
+        "thumb": "gallery/exam/exam_02.jpg",
+        "cap": "वार्षिक परीक्षा — बोर्ड",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/exam/exam_03.jpg",
+        "thumb": "gallery/exam/exam_03.jpg",
+        "cap": "छात्राएं — उत्तर पुस्तिका लेखन",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/exam/exam_04.jpg",
+        "thumb": "gallery/exam/exam_04.jpg",
+        "cap": "छात्राओं की परीक्षा",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/exam/exam_05.jpg",
+        "thumb": "gallery/exam/exam_05.jpg",
+        "cap": "प्राथमिक कक्षा — श्यामपट्ट",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/exam/exam_06.jpg",
+        "thumb": "gallery/exam/exam_06.jpg",
+        "cap": "शिक्षक निगरानी में परीक्षा",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/exam/exam_07.jpg",
+        "thumb": "gallery/exam/exam_07.jpg",
+        "cap": "वार्षिक परीक्षा — हिंदी विषय",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/exam/exam_08.jpg",
+        "thumb": "gallery/exam/exam_08.jpg",
+        "cap": "प्राथमिक कक्षा — गणित",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/exam/exam_09.jpg",
+        "thumb": "gallery/exam/exam_09.jpg",
+        "cap": "वार्षिक परीक्षा — छोटे बच्चे",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/exam/exam_10.jpg",
+        "thumb": "gallery/exam/exam_10.jpg",
+        "cap": "शिक्षिका की निगरानी",
+        "date": "मार्च 2026"
+      }
+    ]
+  },
+  "mdm": {
+    "icon": "🍽️",
+    "title": "मध्यान्ह भोजन",
+    "date": "मार्च 2026",
+    "photos": [
+      {
+        "src": "gallery/mdm/mdm_01.jpg",
+        "thumb": "gallery/mdm/mdm_01.jpg",
+        "cap": "मध्यान्ह भोजन — बच्चे एकसाथ",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/mdm/mdm_02.jpg",
+        "thumb": "gallery/mdm/mdm_02.jpg",
+        "cap": "मध्यान्ह भोजन — लंबी पंक्ति",
+        "date": "मार्च 2026"
+      }
+    ]
+  },
+  "ptm": {
+    "icon": "👨‍👩‍👧",
+    "title": "PTM संगोष्ठी",
+    "date": "फरवरी 2026",
+    "photos": [
+      {
+        "src": "gallery/ptm/ptm_01.jpg",
+        "thumb": "gallery/ptm/ptm_01.jpg",
+        "cap": "अभिभावक और शिक्षक",
+        "date": "फरवरी 2026"
+      },
+      {
+        "src": "gallery/ptm/ptm_02.jpg",
+        "thumb": "gallery/ptm/ptm_02.jpg",
+        "cap": "छात्र व अभिभावक",
+        "date": "फरवरी 2026"
+      },
+      {
+        "src": "gallery/ptm/ptm_03.jpg",
+        "thumb": "gallery/ptm/ptm_03.jpg",
+        "cap": "संगोष्ठी संबोधन",
+        "date": "फरवरी 2026"
+      },
+      {
+        "src": "gallery/ptm/ptm_04.jpg",
+        "thumb": "gallery/ptm/ptm_04.jpg",
+        "cap": "शिक्षिका का उद्बोधन",
+        "date": "फरवरी 2026"
+      },
+      {
+        "src": "gallery/ptm/ptm_05.jpg",
+        "thumb": "gallery/ptm/ptm_05.jpg",
+        "cap": "अभिभावकों को संबोधन",
+        "date": "फरवरी 2026"
+      },
+      {
+        "src": "gallery/ptm/ptm_06.jpg",
+        "thumb": "gallery/ptm/ptm_06.jpg",
+        "cap": "संगोष्ठी — विस्तृत दृश्य",
+        "date": "फरवरी 2026"
+      },
+      {
+        "src": "gallery/ptm/ptm_07.jpg",
+        "thumb": "gallery/ptm/ptm_07.jpg",
+        "cap": "अभिभावकों से सीधा संवाद",
+        "date": "फरवरी 2026"
+      },
+      {
+        "src": "gallery/ptm/ptm_08.jpg",
+        "thumb": "gallery/ptm/ptm_08.jpg",
+        "cap": "अभिभावक शिक्षक वार्ता",
+        "date": "फरवरी 2026"
+      }
+    ]
+  },
+  "holi": {
+    "icon": "🎨",
+    "title": "होली मिलन",
+    "date": "मार्च 2026",
+    "photos": [
+      {
+        "src": "gallery/holi/holi_01.jpg",
+        "thumb": "gallery/holi/holi_01.jpg",
+        "cap": "शिक्षक परिवार — रंगों में सराबोर",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_02.jpg",
+        "thumb": "gallery/holi/holi_02.jpg",
+        "cap": "विद्यालय भवन — होली मिलन",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_03.jpg",
+        "thumb": "gallery/holi/holi_03.jpg",
+        "cap": "तीन शिक्षक — होली सेल्फी",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_04.jpg",
+        "thumb": "gallery/holi/holi_04.jpg",
+        "cap": "साथी शिक्षकों संग होली",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_05.jpg",
+        "thumb": "gallery/holi/holi_05.jpg",
+        "cap": "शिक्षिकाओं संग रंगोत्सव",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_06.jpg",
+        "thumb": "gallery/holi/holi_06.jpg",
+        "cap": "कार्यालय में होली मिलन",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_07.jpg",
+        "thumb": "gallery/holi/holi_07.jpg",
+        "cap": "बच्चे संग — रंग भरा पल",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_08.jpg",
+        "thumb": "gallery/holi/holi_08.jpg",
+        "cap": "शिक्षक — होली की यादें",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_09.jpg",
+        "thumb": "gallery/holi/holi_09.jpg",
+        "cap": "होली पोर्ट्रेट — केसरिया",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_10.jpg",
+        "thumb": "gallery/holi/holi_10.jpg",
+        "cap": "मुस्कुराता होली पोर्ट्रेट",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_11.jpg",
+        "thumb": "gallery/holi/holi_11.jpg",
+        "cap": "Happy Holi — रंगोली",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_12.jpg",
+        "thumb": "gallery/holi/holi_12.jpg",
+        "cap": "रंगोली — Happy Holi संदेश",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_13.jpg",
+        "thumb": "gallery/holi/holi_13.jpg",
+        "cap": "शिक्षक का रंग से संदेश",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_14.jpg",
+        "thumb": "gallery/holi/holi_14.jpg",
+        "cap": "छात्राएं — रंग से रंगोली",
+        "date": "मार्च 2026"
+      },
+      {
+        "src": "gallery/holi/holi_15.jpg",
+        "thumb": "gallery/holi/holi_15.jpg",
+        "cap": "ढोल के साथ होली का जश्न",
+        "date": "मार्च 2026"
+      }
+    ]
+  },
+  "republic": {
+    "icon": "🇮🇳",
+    "title": "गणतंत्र दिवस",
+    "date": "जनवरी 2026",
+    "photos": [
+      {
+        "src": "gallery/republic/republic_01.jpg",
+        "thumb": "gallery/republic/republic_01.jpg",
+        "cap": "सांस्कृतिक कार्यक्रम — गणतंत्र दिवस",
+        "date": "जनवरी 2026"
+      },
+      {
+        "src": "gallery/republic/republic_02.jpg",
+        "thumb": "gallery/republic/republic_02.jpg",
+        "cap": "ध्वजारोहण समारोह",
+        "date": "जनवरी 2026"
+      }
+    ]
+  }
+};
+
+const BATCH = 15;
+let cur=[], showing=0, lbList=[], lbIdx=0;
+
+const CAT_EXTRA = {
+  all:{ico:'🔍',ttl:'सभी तस्वीरें',date:''},
+  bhavan:{ico:'🏫',ttl:'विद्यालय भवन',date:'जनवरी 2026'},
+  prarthna:{ico:'🙏',ttl:'प्रार्थना सभा',date:'मार्च 2026'},
+  exam:{ico:'📝',ttl:'वार्षिक परीक्षा',date:'मार्च 2026'},
+  mdm:{ico:'🍽️',ttl:'मध्यान्ह भोजन',date:'मार्च 2026'},
+  ptm:{ico:'👨‍👩‍👧',ttl:'PTM संगोष्ठी',date:'फरवरी 2026'},
+  holi:{ico:'🎨',ttl:'होली मिलन',date:'मार्च 2026'},
+  republic:{ico:'🇮🇳',ttl:'गणतंत्र दिवस',date:'जनवरी 2026'},
+};
+
+function allPhotos(){
+  const a=[];
+  Object.entries(DATA).forEach(([id,g])=>
+    g.photos.forEach(p=>a.push({...p,catId:id,catIcon:g.icon,catTitle:g.title})));
+  return a;
+}
+
+function selectCat(cat){
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('on'));
+  const ab = cat==='all'?document.querySelector('.cat-all'):document.querySelector(`[data-cat="${cat}"]`);
+  if(ab) ab.classList.add('on');
+  const m = CAT_EXTRA[cat]||{};
+  document.getElementById('ah-ico').textContent  = m.ico||'🔍';
+  document.getElementById('ah-ttl').textContent  = m.ttl||cat;
+  document.getElementById('ah-date').textContent = m.date||'';
+  cur = cat==='all' ? allPhotos()
+      : (DATA[cat]?.photos||[]).map(p=>{const g=DATA[cat];return{...p,catId:cat,catIcon:g.icon,catTitle:g.title}});
+  document.getElementById('ah-cnt').textContent = cur.length+' Photos';
+  lbList = cur;
+  showing = 0;
+  document.getElementById('grid').innerHTML = '';
+  loadMore();
+}
+
+function loadMore(){
+  const grid = document.getElementById('grid');
+  const end  = Math.min(showing+BATCH, cur.length);
+  for(let i=showing;i<end;i++){
+    const p=cur[i], idx=i;
+    const d=document.createElement('div');
+    d.className='ph';d.onclick=()=>openLb(idx);
+    d.innerHTML=`<div class="ph-sk"></div>
+      <img src="${p.src}" alt="${p.cap}" loading="lazy"
+           onload="this.classList.add('loaded');this.previousElementSibling.style.display='none'">
+      <div class="ph-ov">
+        <span class="ph-tag">${p.catIcon} ${p.catTitle}</span>
+        <div class="ph-cap">${p.cap}</div>
+        <div class="ph-dt">📅 ${p.date}</div>
+      </div>`;
+    grid.appendChild(d);
+  }
+  showing=end;
+  const rem=cur.length-showing;
+  const lw=document.getElementById('loadWrap');
+  document.getElementById('remCnt').textContent=rem>0?'('+rem+' और)':'';
+  lw.style.display=rem>0?'block':'none';
+}
+
+// Lightbox
+function openLb(i){
+  lbIdx=i;const p=lbList[i];
+  document.getElementById('lb-img').src=p.src;
+  document.getElementById('lb-cap').textContent=p.cap;
+  document.getElementById('lb-date').textContent=p.date;
+  document.getElementById('lb-ctag').textContent=(p.catIcon||'')+' '+(p.catTitle||'');
+  document.getElementById('lb-cnt').textContent=(i+1)+' / '+lbList.length;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLb(){document.getElementById('lb').classList.remove('open');document.body.style.overflow='';}
+function navLb(d){lbIdx=(lbIdx+d+lbList.length)%lbList.length;openLb(lbIdx);}
+document.getElementById('lb').addEventListener('click',e=>{if(e.target===document.getElementById('lb'))closeLb();});
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lb').classList.contains('open'))return;
+  if(e.key==='Escape')closeLb();
+  if(e.key==='ArrowRight')navLb(1);
+  if(e.key==='ArrowLeft')navLb(-1);
+});
+
+// Touch swipe
+let tx=0;
+document.getElementById('lb').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.getElementById('lb').addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>50) navLb(dx<0?1:-1);
+});
+
+// Init
+selectCat('all');
+</script>
+</body>
+</html>
