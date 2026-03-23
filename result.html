@@ -348,6 +348,17 @@ nav {
   padding: 3px 12px;
   border-radius: 20px; font-size: 0.8rem; font-weight: 600;
 }
+.res-father {
+  color: rgba(255,255,255,0.82);
+  font-size: 0.82rem;
+  display: block;
+  margin-top: 2px;
+}
+.res-dob {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.78rem;
+  display: block;
+}
 .res-pass-tag {
   font-family: 'Playfair Display', serif;
   font-size: 1.5rem; font-weight: 700;
@@ -616,6 +627,8 @@ footer a:hover { color: white; }
             <div class="res-meta">
               <span class="res-class" id="rClass">—</span>
               <span class="res-roll-tag" id="rRoll">Roll No: —</span>
+              <span class="res-father" id="rFather">—</span>
+              <span class="res-dob" id="rDob">—</span>
             </div>
           </div>
           <span class="res-pass-tag" id="rStatus">—</span>
@@ -728,6 +741,8 @@ function buildData(rows) {
 
       return {
         roll, name,
+        father:    String(row["Father Name"] || "").trim(),
+        dob:       String(row["DOB"] || "").trim(),
         class:     cls,
         hindi_fm:  +row["Hindi (FM)"]      || 50,
         hindi_obt: +row["Hindi (Obt)"]     || 0,
@@ -804,7 +819,9 @@ function gradeClass(g) {
 function renderResult(s) {
   document.getElementById("rName").textContent    = s.name;
   document.getElementById("rClass").textContent   = s.class;
-  document.getElementById("rRoll").textContent    = "Roll No: " + s.roll;
+  document.getElementById("rRoll").textContent    = "🎫 Roll No: " + s.roll;
+  document.getElementById("rFather").textContent  = s.father ? "👨 पिता: " + s.father : "";
+  document.getElementById("rDob").textContent     = s.dob    ? "🎂 जन्म तिथि: " + s.dob : "";
   document.getElementById("rTotal").textContent   = s.total + " / " + s.fullmarks;
   document.getElementById("rPercent").textContent = parseFloat(s.pct).toFixed(2) + "%";
 
