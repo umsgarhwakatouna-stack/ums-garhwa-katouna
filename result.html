@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>परीक्षा परिणाम 2024-25 — उत्क्रमित मध्य विद्यालय, गढ़वा कटौना</title>
+<title>परीक्षा परिणाम 2025-26 — उत्क्रमित मध्य विद्यालय, गढ़वा कटौना</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Noto+Sans+Devanagari:wght@300;400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
@@ -383,7 +383,7 @@ nav {
 .gB { color: #1565c0; }
 .gC { color: #e65100; }
 .gD { color: #6a1fa0; }
-.gF { color: var(--fail); }
+.gE { color: var(--fail); }
 
 /* Marks table */
 .marks-section {
@@ -547,7 +547,7 @@ footer a:hover { color: white; }
 <!-- HERO -->
 <div class="hero">
   <div class="hero-badge">📊 परीक्षा परिणाम पोर्टल</div>
-  <h1>वार्षिक परीक्षा परिणाम <em>2024–25</em></h1>
+  <h1>वार्षिक परीक्षा परिणाम <em>2025–26</em></h1>
   <div class="hero-sub">कक्षा 1 से 8 | Roll Number डालकर अपना परिणाम देखें</div>
 </div>
 
@@ -561,14 +561,7 @@ footer a:hover { color: white; }
     <p id="fetchErrBody">इंटरनेट कनेक्शन जाँचें या Admin से संपर्क करें।</p>
   </div>
 
-  <!-- LIVE STATUS -->
-  <div class="live-banner" id="liveBanner" style="display:none">
-    <div class="live-dot"></div>
-    <div class="live-text">
-      <strong id="liveTitle">परिणाम डेटा उपलब्ध है ✓</strong>
-      <small id="liveSub">—</small>
-    </div>
-  </div>
+
 
   <!-- SEARCH CARD -->
   <div class="card search-card" id="searchCard" style="display:none">
@@ -612,7 +605,7 @@ footer a:hover { color: white; }
       <div class="print-letterhead">
         <div class="pln">उत्क्रमित मध्य विद्यालय, गढ़वा कटौना</div>
         <div class="pla">📍 ग्राम - गढ़वा कटौना, प्रखंड - बरहट, जिला - जमुई, बिहार | Pin: 811315</div>
-        <div class="plt">वार्षिक परीक्षा परिणाम — 2024–25</div>
+        <div class="plt">वार्षिक परीक्षा परिणाम — 2025–26</div>
       </div>
 
       <!-- Student Top Banner -->
@@ -686,7 +679,7 @@ footer a:hover { color: white; }
 // ============================================================
 let studentData = [];
 
-// ---- FETCH FROM SERVER ----
+// ---- FETCH FROM GITHUB ----
 async function init() {
   try {
     const res = await fetch(EXCEL_URL, { cache: "no-cache" });
@@ -696,7 +689,7 @@ async function init() {
     const ws  = wb.Sheets[wb.SheetNames[0]];
 
     // New Excel has 2 info rows on top — skip them, row 3 is actual header
-    const rows = XLSX.utils.sheet_to_json(ws, { defval: "", range: 2 });
+    const rows = XLSX.utils.sheet_to_json(ws, { defval: "", range: 3 });
     buildData(rows);
   } catch(e) {
     document.getElementById("loadingOverlay").style.display = "none";
@@ -704,7 +697,7 @@ async function init() {
     document.getElementById("fetchErrTitle").textContent = "डेटा लोड नहीं हो सका";
     document.getElementById("fetchErrBody").innerHTML =
       `<b>Error:</b> ${e.message}<br><br>
-       <b>Possible fix:</b> Excel file Server में है? File public है?<br>
+       <b>Possible fix:</b> Excel file Server पर है? File सही है?<br>
        EXCEL_URL को HTML में जाँचें।`;
   }
 }
@@ -726,29 +719,36 @@ function buildData(rows) {
       const roll     = +row["Roll No."] || 0;
       const cls      = String(row["Class"] || "").trim();
       const classNum = parseInt(cls.replace("Class","").trim()) || 0;
-      const is3to8   = classNum >= 3;
+
+      // Class 1-2 → Hindi+English+Math (150)
+      // Class 3-5 → Hindi+English+Math+EVS (200)
+      // Class 6-8 → Hindi+English+Math+Science+Soc.Sci+Sanskrit (300)
+      const is3to5 = classNum >= 3 && classNum <= 5;
+      const is6to8 = classNum >= 6;
 
       return {
         roll, name,
         class:     cls,
-        hindi_fm:  +row["Hindi (F.M)"]      || 100,
-        hindi_obt: +row["Hindi (Obt)"]      || 0,
-        eng_fm:    +row["English (F.M)"]    || 100,
-        eng_obt:   +row["English (Obt)"]    || 0,
-        math_fm:   +row["Math (F.M)"]       || 100,
-        math_obt:  +row["Math (Obt)"]       || 0,
-        sci_fm:    is3to8 ? (+row["Science (F.M)"]   || 100) : 0,
-        sci_obt:   is3to8 ? (+row["Science (Obt)"]   || 0)   : 0,
-        soc_fm:    is3to8 ? (+row["Soc. Sci. (F.M)"] || 100) : 0,
-        soc_obt:   is3to8 ? (+row["Soc. Sci. (Obt)"] || 0)   : 0,
-        san_fm:    is3to8 ? (+row["Sanskrit (F.M)"]  || 100) : 0,
-        san_obt:   is3to8 ? (+row["Sanskrit (Obt)"]  || 0)   : 0,
-        fullmarks: +row["Full Marks"]  || (is3to8 ? 600 : 300),
-        total:     +row["Total Obt."]  || +row["Total Marks"] || 0,
-        pct:       +row["Percentage"]  || 0,
+        hindi_fm:  +row["Hindi (FM)"]      || 50,
+        hindi_obt: +row["Hindi (Obt)"]     || 0,
+        eng_fm:    +row["English (FM)"]    || 50,
+        eng_obt:   +row["English (Obt)"]   || 0,
+        math_fm:   +row["Math (FM)"]       || 50,
+        math_obt:  +row["Math (Obt)"]      || 0,
+        evs_fm:    is3to5 ? (+row["EVS (FM)"]       || 50) : 0,
+        evs_obt:   is3to5 ? (+row["EVS (Obt)"]      || 0)  : 0,
+        sci_fm:    is6to8 ? (+row["Science (FM)"]   || 50) : 0,
+        sci_obt:   is6to8 ? (+row["Science (Obt)"]  || 0)  : 0,
+        soc_fm:    is6to8 ? (+row["Soc.Sci (FM)"]   || 50) : 0,
+        soc_obt:   is6to8 ? (+row["Soc.Sci (Obt)"]  || 0)  : 0,
+        san_fm:    is6to8 ? (+row["Sanskrit (FM)"]  || 50) : 0,
+        san_obt:   is6to8 ? (+row["Sanskrit (Obt)"] || 0)  : 0,
+        fullmarks: +row["Full Marks"] || (is6to8 ? 300 : is3to5 ? 200 : 150),
+        total:     +row["Total Obt."] || 0,
+        pct:       +row["Percentage"] || 0,
         grade:     String(row["Grade"]  || "").trim(),
         result:    String(row["Result"] || "").trim(),
-        is3to8,
+        is3to5, is6to8,
       };
     });
 
@@ -763,12 +763,7 @@ function buildData(rows) {
     sel.appendChild(o);
   });
 
-  document.getElementById("liveTitle").textContent = "परिणाम डेटा उपलब्ध है ✓";
-  document.getElementById("liveSub").textContent =
-    `${studentData.length} छात्रों का डेटा • ${classes.length} कक्षाएं • Server से लाइव लोड`;
-
   document.getElementById("loadingOverlay").style.display = "none";
-  document.getElementById("liveBanner").style.display     = "flex";
   document.getElementById("searchCard").style.display     = "block";
 }
 
@@ -795,14 +790,14 @@ function showErr(m) {
   document.getElementById("alertError").style.display = "flex";
 }
 
-// Grade color helper — supports A+, B+, A, B, C, D, F
+// Grade color — A, B, C, D, E supported
 function gradeClass(g) {
   const g0 = String(g).toUpperCase();
   if (g0.startsWith("A")) return "gA";
   if (g0.startsWith("B")) return "gB";
   if (g0.startsWith("C")) return "gC";
   if (g0.startsWith("D")) return "gD";
-  return "gF";
+  return "gE";
 }
 
 // ---- RENDER RESULT ----
@@ -822,16 +817,19 @@ function renderResult(s) {
   sEl.textContent = isPass ? "✓ PASS" : "✗ FAIL";
   sEl.className   = "res-pass-tag " + (isPass ? "tag-pass" : "tag-fail");
 
-  // Build subject list based on class
+  // Build subject list based on class group
   const subjects = [
-    { name:"हिन्दी",        icon:"📖", fm:s.hindi_fm, obt:s.hindi_obt },
-    { name:"English",       icon:"🔤", fm:s.eng_fm,   obt:s.eng_obt   },
-    { name:"गणित",          icon:"🔢", fm:s.math_fm,  obt:s.math_obt  },
+    { name:"हिन्दी",  icon:"📖", fm:s.hindi_fm, obt:s.hindi_obt },
+    { name:"English", icon:"🔤", fm:s.eng_fm,   obt:s.eng_obt   },
+    { name:"गणित",   icon:"🔢", fm:s.math_fm,  obt:s.math_obt  },
   ];
-  if (s.is3to8) {
-    subjects.push({ name:"विज्ञान",      icon:"🔬", fm:s.sci_fm, obt:s.sci_obt });
-    subjects.push({ name:"सामाजिक विज्ञान", icon:"🌍", fm:s.soc_fm, obt:s.soc_obt });
-    subjects.push({ name:"संस्कृत",     icon:"📜", fm:s.san_fm, obt:s.san_obt });
+  if (s.is3to5) {
+    subjects.push({ name:"पर्यावरण अध्ययन (EVS)", icon:"🌿", fm:s.evs_fm, obt:s.evs_obt });
+  }
+  if (s.is6to8) {
+    subjects.push({ name:"विज्ञान",           icon:"🔬", fm:s.sci_fm, obt:s.sci_obt });
+    subjects.push({ name:"सामाजिक विज्ञान",  icon:"🌍", fm:s.soc_fm, obt:s.soc_obt });
+    subjects.push({ name:"संस्कृत",          icon:"📜", fm:s.san_fm, obt:s.san_obt });
   }
 
   const tbody = document.getElementById("marksBody");
