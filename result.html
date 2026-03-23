@@ -745,7 +745,7 @@ function buildData(rows) {
         san_obt:   is6to8 ? (+row["Sanskrit (Obt)"] || 0)  : 0,
         fullmarks: +row["Full Marks"] || (is6to8 ? 300 : is3to5 ? 200 : 150),
         total:     +row["Total Obt."] || 0,
-        pct:       +row["Percentage"] || 0,
+        pct:       parseFloat(String(row["Percentage"] || "0").replace("%","")) || 0,
         grade:     String(row["Grade"]  || "").trim(),
         result:    String(row["Result"] || "").trim(),
         is3to5, is6to8,
